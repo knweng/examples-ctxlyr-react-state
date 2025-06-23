@@ -1,0 +1,26 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": true,
+			"suspicious": {
+				"noConfusingVoidType": "off"
+			}
+		}
+	},
+	"formatter": {
+		"enabled": true,
+		"formatWithErrors": true
+	},
+	"javascript": {
+		"formatter": {
+			"semicolons": "asNeeded"
+		}
+	},
+	"css": {
+		"formatter": {
+			"enabled": true
+		}
+	}
+}

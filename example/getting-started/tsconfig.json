@@ -1,0 +1,12 @@
+{
+	"extends": "../../tsconfig.base.json",
+	"composite": true,
+	"compilerOptions": {
+		"baseUrl": ".",
+		"paths": {
+			"@ctxlyr/react-state/use": ["./app/ctxlyr.ts"],
+			"@/*": ["../../src/*"]
+		}
+	},
+	"include": ["app"]
+}
