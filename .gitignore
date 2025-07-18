@@ -4,6 +4,8 @@ dist
 dist-ssr
 *.local
 
+.vscode
+.tanstack
 /test-results/
 /playwright-report/
 /blob-report/
