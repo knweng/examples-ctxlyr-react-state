@@ -6,10 +6,10 @@ import {
 	peek$,
 	set$,
 } from "@ctxlyr/react-state"
-import type { $Model, Message, ResponseBuffer } from "./model.ts"
+import type { ChatModel, Message, ResponseBuffer } from "./model.ts"
 
 export const Chat = Store.make(
-	Store.type<$Model>(),
+	Store.type<ChatModel>(),
 	Store.initial("Compose"),
 	Store.actions(
 		Action.when("sendMessage", ({ to, payload }) =>

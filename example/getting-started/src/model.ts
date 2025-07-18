@@ -1,8 +1,8 @@
 import type { $ } from "@ctxlyr/react-state"
 
-export type $Model = $.Model<$Store, "Compose">
+export type ChatModel = $.Model<Store, "Compose">
 
-type $Store = $.Store<{
+type Store = $.Store<{
 	Compose: $.Slice<
 		[
 			$.Context<{ chatMessages: Array<Message> }>,
@@ -18,7 +18,6 @@ type $Store = $.Store<{
 			}>,
 			$.SubSlice<{
 				Stream: $.Slice<[$.OnEntry]>
-
 				Error: $.Slice<
 					[
 						$.Context<{ errorMsg: string }>,
