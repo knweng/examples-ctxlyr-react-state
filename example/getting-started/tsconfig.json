@@ -4,9 +4,9 @@
 	"compilerOptions": {
 		"baseUrl": ".",
 		"paths": {
-			"@ctxlyr/react-state/use": ["./app/ctxlyr.ts"],
+			"@ctxlyr/react-state/use": ["./src/ctxlyr.ts"],
 			"@/*": ["../../src/*"]
 		}
 	},
-	"include": ["app"]
+	"include": ["src"]
 }

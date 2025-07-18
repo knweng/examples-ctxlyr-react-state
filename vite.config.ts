@@ -9,7 +9,7 @@ export default defineConfig({
 			target: "react",
 			routesDirectory: "./",
 			virtualRouteConfig: "./routes.ts",
-			routeFileIgnorePattern: "app",
+			routeFileIgnorePattern: "src",
 			autoCodeSplitting: true,
 		}),
 		tsconfigPaths(),
