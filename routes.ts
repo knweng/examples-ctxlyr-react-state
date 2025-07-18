@@ -1,10 +1,4 @@
-import {
-	index,
-	layout,
-	physical,
-	rootRoute,
-	route,
-} from "@tanstack/virtual-file-routes"
+import { index, physical, rootRoute } from "@tanstack/virtual-file-routes"
 
 export const routes = rootRoute("./src/routes/root.tsx", [
 	index("./src/routes/home.tsx"),

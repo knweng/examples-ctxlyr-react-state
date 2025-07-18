@@ -1,6 +1,6 @@
 import { makeContextLayer } from "@ctxlyr/react-state"
-import { FooBar } from "./store"
+import { Chat } from "./store"
 
-export const { Context, $, useObservable, useWatch } = makeContextLayer({
-	FooBar,
-})
+const ctxlyr = makeContextLayer({ Chat })
+
+export const { Context, select$, useWatch } = ctxlyr

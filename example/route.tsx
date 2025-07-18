@@ -1,10 +1,13 @@
-import { createFileRoute, Link, Outlet } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router"
+import "./global.css"
 
 export const Route = createFileRoute("/example/")({
-	component: () => (
-		<div>
-			Hello!
-			<br /> <Outlet />
-		</div>
-	),
+	head: () => ({
+		meta: [
+			{
+				title: "Examples @ctxlyer/react-state",
+			},
+		],
+	}),
+	component: () => <div />,
 })

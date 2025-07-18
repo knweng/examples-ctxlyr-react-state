@@ -1,21 +1,55 @@
-import { Action, Store, to, peek$ } from "@ctxlyr/react-state"
-import type { $Model } from "./model.ts"
+import { mockApi } from "@/lib/mock/llm.ts"
+import {
+	Action,
+	type Observable,
+	Store,
+	peek$,
+	set$,
+} from "@ctxlyr/react-state"
+import type { $Model, Message, ResponseBuffer } from "./model.ts"
 
-export const FooBar = Store.make(
+export const Chat = Store.make(
 	Store.type<$Model>(),
-	Store.initial("Foo"),
+	Store.initial("Compose"),
 	Store.actions(
-		Action.onEntry("Foo", () => {}),
-		Action.when("pauseThing", () => {}),
-		Action.when("doNextThing", ({ context, payload }) => {
-			return context.set({ foo: payload })
-		}),
-		Action.when("doThing", ({ payload, context }) => {
-			const contextPeek$ = context.peek()
-			const foo = peek$(context.foo$)
+		Action.when("sendMessage", ({ to, payload }) =>
+			to.slice("Generate.Stream", { newMessage: payload, responseBuffer: "" }),
+		),
+		Action.onEntry("Generate.Stream", async ({ to, context }) => {
+			const { chatMessages, newMessage } = context.peek()
+			chatMessages.push(newMessage)
 
-			return to.slice("Bar.Qux", { items: [foo], name: payload })
+			try {
+				await streamResponseWithThrow(chatMessages, context.responseBuffer$)
+				return to.slice("Compose")
+			} catch (e) {
+				const errorMsg = (e as Error).message
+				return to.slice("Generate.Error", { errorMsg })
+			}
+		}),
+		Action.when("retry", ({ to, context }) => {
+			peek$(context.chatMessages$).pop()
+			return to.slice("Generate.Stream")
+		}),
+		Action.when("reset", ({ to, context }) => {
+			peek$(context.chatMessages$).pop()
+			return to.slice("Compose")
 		}),
 		Action.exhaustive,
 	),
 )
+
+const streamResponseWithThrow = async (
+	chatMessages: Message[],
+	responseBuffer$: Observable<ResponseBuffer>,
+) => {
+	const { textStream } = mockApi.streamChat(chatMessages)
+
+	let buffer = ""
+	for await (const textPart of textStream) {
+		buffer += textPart
+		set$(responseBuffer$, buffer)
+	}
+
+	throw Error("LLM API Overloaded")
+}

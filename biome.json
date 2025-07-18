@@ -6,6 +6,9 @@
 			"recommended": true,
 			"suspicious": {
 				"noConfusingVoidType": "off"
+			},
+			"a11y": {
+				"useButtonType": "off"
 			}
 		}
 	},

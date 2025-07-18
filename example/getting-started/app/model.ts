@@ -1,23 +1,34 @@
 import type { $ } from "@ctxlyr/react-state"
 
-export type $Model = $.Model<$Store, "Foo">
+export type $Model = $.Model<$Store, "Compose">
 
 type $Store = $.Store<{
-	Foo: $.Slice<
+	Compose: $.Slice<
 		[
-			$.OnEntry,
-			$.Context<{ foo: "initial value" | "jux" }>,
-			$.Action<{ doThing: string; doNextThing: "jux" }>,
+			$.Context<{ chatMessages: Array<Message> }>,
+			$.Action<{ sendMessage: string }>,
 		]
 	>
-	Bar: $.Slice<
+	Generate: $.Slice<
 		[
-			$.Context<{ name: string }>,
-			$.Action<{ pauseThing: Date }>,
+			$.Context<{
+				chatMessages: Array<Message>
+				newMessage: Message
+				responseBuffer: string
+			}>,
 			$.SubSlice<{
-				Qux: $.Slice<[$.Context<{ items: string[] }>]>
-				Rix: $.Slice<[$.Context<{ items: string | boolean[] }>]>
+				Stream: $.Slice<[$.OnEntry]>
+
+				Error: $.Slice<
+					[
+						$.Context<{ errorMsg: string }>,
+						$.Action<{ reset: void; retry: void }>,
+					]
+				>
 			}>,
 		]
 	>
 }>
+
+export type Message = string
+export type ResponseBuffer = string

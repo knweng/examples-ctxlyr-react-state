@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router"
-import { Layer } from "./app/app.tsx"
+import { StoreLayer } from "./app/app.tsx"
 
 export const Route = createFileRoute("/example/getting-started")({
-	component: Layer,
+	head: () => ({
+		meta: [
+			{
+				title: "Getting Started › example › @ctxlyr/react-state",
+			},
+		],
+	}),
+	component: StoreLayer,
 })
